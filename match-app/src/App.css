@@ -1,0 +1,36 @@
+
+.container{
+	margin: auto;
+	max-width: 100%;
+	width: 100%;
+}
+.hero{
+	margin-left: 5%;
+	margin-right: 5%;
+	border-bottom: 1px black solid;
+	text-align: center;
+}
+.box{
+ 	margin: .65em;
+}
+
+
+.note{
+	float: left;
+
+
+}
+.clearfix:after { 
+   content: "."; 
+   visibility: hidden; 
+   display: block; 
+   height: 0; 
+   clear: both;
+}
+
+
+
+/*Modal*/
+.modal{
+	display: none;
+}
