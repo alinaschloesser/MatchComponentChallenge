@@ -9,7 +9,7 @@ const Note = props => {
     <span className="box note">
       <h3 className="title">{props.title}</h3>
         <p>{props.noteBody}</p>
-        <div onClick={() => props.deleteNote(props.id)} id={props.id} className="button">edit</div>
+        <div onClick={() => props.deleteNote(props.id)} id={props.id} className="button">delete</div>
 
     </span>
   )
@@ -29,7 +29,7 @@ const Modal = props => {
       </section>
       <footer className="modal-card-foot">
         <button className="button is-success">Save changes</button>
-        <button className="button">Cancel</button>
+        <button className="button" onClick={()=>{props.displayModal()}}>Cancel</button>
       </footer>
     </div>
   </div>
@@ -58,9 +58,9 @@ class App extends Component {
         noteBody:"I am another note"
       }
       ],
-    display: "none"
+    display: true
     }
-    // this.handleClicks = this.handleClicks.bind(this);
+
   }
 
    deleteNote = id => {
@@ -79,11 +79,12 @@ class App extends Component {
   }
 
   displayModal = () => {
-    this.setState({display:"block"})
+    this.setState({display: !this.state.display})
    
   }
 
   render() {
+    let display = this.state.display ? "none" :"block"
     return (
       <div className="app clearfix">
        <section className="hero">
@@ -95,7 +96,6 @@ class App extends Component {
                 </div>
             </div>
         </section>
-   
         <section className="section clearfix">
             <div className="container">
               {this.state.notes.map((note)=>
@@ -110,10 +110,9 @@ class App extends Component {
             </div>
         </section> 
         <Modal 
-          display={this.state.display}
+          display={display}
+          displayModal= {this.displayModal}
         />
-
-
       </div>
     );
   }
