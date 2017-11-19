@@ -10,44 +10,61 @@ const Note = props => {
       <h3 className="title">{props.title}</h3>
         <p>{props.noteBody}</p>
         <div onClick={() => props.deleteNote(props.id)} id={props.id} className="button">delete</div>
-
     </span>
   )
 }
 
-const Modal = props => {
-  
-  const form = props.form;
-  const event = e =>{
-    console.log(form);
-      console.log(e);
+class Modal extends Component{ 
+  constructor(props){
+    super(props);
+    this.state = {
+      form:{
+        id:"",
+        title:"",
+        noteBody:""
+      }
+    }
   }
 
-  return(
-    <div className="modal" style={{display:props.display}}>
-    <div className="modal-background"></div>
-    <div className="modal-card">
-      <header className="modal-card-head">
-        <p className="modal-card-title">Add a Note!</p>
-        <button className="delete" onClick={()=>{props.displayModal()}} aria-label="close"></button>
-      </header>
-      <section className="modal-card-body">
-        <div className="field">
-        <form > 
-          <label className="label">Note Title</label>
-          <input className="input" palceholder="Title" value={form.title} name="title" onChange={()=>{event()}} />
-          </form>
-        </div>       
-      </section>
-      <footer className="modal-card-foot">
-        <button className="button" onClick={()=>{props.addNote(); props.displayModal()}}>Save changes</button>
-        <button className="button" onClick={()=>{props.displayModal()}}>Cancel</button>
-      </footer>
-    </div>
-  </div>
-  )
-}
+  handleChange = (e) => {
+    console.log(e.target.value);
+    let form= this.state.form;
+    form[e.target.name] = e.target.value;
+    this.setState({form})
+  }
+  
 
+  render(){
+  
+    return(
+      <div className="modal" style={{display:this.props.display}}>
+        <div className="modal-background"></div>
+        <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title">Add a Note!</p>
+            <button className="delete" onClick={()=>{this.props.displayModal()}} aria-label="close"></button>
+          </header>
+          <section className="modal-card-body">
+            <form > 
+              <div className="field">         
+                <label className="label">Note Title</label>
+                <input className="input" palceholder="Title" value={this.state.form.title} name="title" onChange={this.handleChange} />
+              </div>
+              <div className="field">         
+                <label className="label">Note Body</label>
+                <input className="input" palceholder="Text" value={this.state.form.noteBody} name="noteBody" onChange={this.handleChange} />
+              </div>
+            </form>       
+          </section>
+          <footer className="modal-card-foot">
+            <button className="button" onClick={()=>{this.props.addNote(this.state.form); this.props.displayModal()}}>Save changes</button>
+            <button className="button" onClick={()=>{this.props.displayModal()}}>Cancel</button>
+          </footer>
+        </div>
+      </div>
+    )
+  }
+}
 
 class App extends Component {
   constructor(props){
@@ -85,14 +102,15 @@ class App extends Component {
     this.setState({notes});
   }
 
-  addNote = () => { 
+  addNote = (form) => { 
     const newNoteId = this.state.notes.length +1;
     const newNote = {
       id: newNoteId,
-      title: this.state.form.title,
-      body: this.state.form.noteBody
+      title: form.title,
+      noteBody: form.noteBody
     }
     this.state.notes.push(newNote);
+
   }
 
   displayModal = () => {
@@ -100,13 +118,7 @@ class App extends Component {
    
   }
 
-  handleChange = (e) => {
-    console.log(e);
-    let form= this.state.form;
-    // form[e.target.name] = e.target.value;
-
-    this.setState({form})
-  }
+  
 
   render() {
     let display = this.state.display ? "none" :"block"
