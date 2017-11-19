@@ -52,7 +52,7 @@ class Modal extends Component{
               </div>
               <div className="field">         
                 <label className="label">Note Body</label>
-                <input className="input" palceholder="Text" value={this.state.form.noteBody} name="noteBody" onChange={this.handleChange} />
+                <input className="textarea" palceholder="Text" value={this.state.form.noteBody} name="noteBody" onChange={this.handleChange} />
               </div>
             </form>       
           </section>
@@ -136,20 +136,18 @@ class App extends Component {
                     <button className="button" onClick={() =>{this.displayModal()}} type="button">New Note</button>
                 </div>
             </div>
-        </section>
-    
-            <div className="container noteContainer clearfix">
-              {this.state.notes.map((note)=>
-                <Note 
-                  key= {note.id}
-                  id= {note.id}
-                  title={note.title}
-                  noteBody={note.noteBody}
-                  deleteNote= {this.deleteNote}
-                />
-              )}
-            </div>
-
+        </section>    
+          <div className="container noteContainer clearfix">
+            {this.state.notes.map((note)=>
+              <Note 
+                key= {note.id}
+                id= {note.id}
+                title={note.title}
+                noteBody={note.noteBody}
+                deleteNote= {this.deleteNote}
+              />
+            )}
+          </div>
         <Modal 
           display={display}
           displayModal= {this.displayModal}

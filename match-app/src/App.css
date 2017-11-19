@@ -1,6 +1,10 @@
-body{
-		color: #49647b;
+body, .button, .headerTitle, .headerSubtitle, .label, .noteTitle, .modal-card-title{
+	color: #49647b;
 }
+.noteTitle, .headerTitle{
+	color: #1975d2
+}
+
 
 .container{
 	margin: auto;
@@ -9,19 +13,16 @@ body{
 }
 
 .hero{
-	margin-left: 5%;
-	margin-right: 5%;
-	border-bottom: 1px #49647b solid;
+	border-bottom: 1px #1975d2 solid;
 	text-align: center;
+	background-color: #fbfbfb;
 }
 
 .headerTitle{
 	font-size: 3rem;
 }
 
-.headerTitle, .headerSubtitle{
-	color: #49647b;
-}
+
 
 .noteContainer{
 	width: 90%;
@@ -32,12 +33,12 @@ body{
 .note{
 	margin: 25px auto;
 	display: inline-block;
+	background-color: #fbfbfb;
 }
 
 .noteTitle{
 	font-size: 1.65rem;
 	margin-bottom: 1rem;
-	color: #49647b;
 }
 
 .noteBody{
@@ -57,7 +58,7 @@ body{
    clear: both;
 }
 .button{ 
-	color: #49647b; 
+	background-color: #fbfbfb;
 }
 
 /*Modal*/
