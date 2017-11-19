@@ -6,11 +6,11 @@ import './App.css';
 const Note = props => {
 
   return(
-    <span className="box note">
-      <h3 className="title">{props.title}</h3>
-        <p>{props.noteBody}</p>
+    <div className="box note">
+      <p className="title noteTitle">{props.title}</p>
+        <p className="noteBody">{props.noteBody}</p>
         <div onClick={() => props.deleteNote(props.id)} id={props.id} className="button">delete</div>
-    </span>
+    </div>
   )
 }
 
@@ -57,7 +57,11 @@ class Modal extends Component{
             </form>       
           </section>
           <footer className="modal-card-foot">
-            <button className="button" onClick={()=>{this.props.addNote(this.state.form); this.props.displayModal()}}>Save changes</button>
+            <button className="button" onClick={()=>{this.props.addNote(this.state.form); this.props.displayModal(); this.setState({form:{
+        id:"",
+        title:"",
+        noteBody:""
+      }})}}>Save changes</button>
             <button className="button" onClick={()=>{this.props.displayModal()}}>Cancel</button>
           </footer>
         </div>
@@ -103,7 +107,7 @@ class App extends Component {
   }
 
   addNote = (form) => { 
-    const newNoteId = this.state.notes.length +1;
+    const newNoteId = Date.now();
     const newNote = {
       id: newNoteId,
       title: form.title,
@@ -127,14 +131,14 @@ class App extends Component {
        <section className="hero">
             <div className="hero-body">
                 <div className="container">
-                    <h1 className="title">Notes</h1>
-                    <h3 className="subtitle">make a new note or remove an existing one</h3>
+                    <h1 className="title headerTitle">Notes</h1>
+                    <h3 className="subtitle headerSubtitle">make a new note or remove an existing one</h3>
                     <button className="button" onClick={() =>{this.displayModal()}} type="button">New Note</button>
                 </div>
             </div>
         </section>
-        <section className="section clearfix">
-            <div className="container">
+    
+            <div className="container noteContainer clearfix">
               {this.state.notes.map((note)=>
                 <Note 
                   key= {note.id}
@@ -142,11 +146,10 @@ class App extends Component {
                   title={note.title}
                   noteBody={note.noteBody}
                   deleteNote= {this.deleteNote}
-  
                 />
               )}
             </div>
-        </section> 
+
         <Modal 
           display={display}
           displayModal= {this.displayModal}
