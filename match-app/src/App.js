@@ -16,19 +16,31 @@ const Note = props => {
 }
 
 const Modal = props => {
+  
+  const form = props.form;
+  const event = e =>{
+    console.log(form);
+      console.log(e);
+  }
+
   return(
     <div className="modal" style={{display:props.display}}>
     <div className="modal-background"></div>
     <div className="modal-card">
       <header className="modal-card-head">
-        <p className="modal-card-title">Modal title</p>
-        <button className="delete" aria-label="close"></button>
+        <p className="modal-card-title">Add a Note!</p>
+        <button className="delete" onClick={()=>{props.displayModal()}} aria-label="close"></button>
       </header>
       <section className="modal-card-body">
-        stuff goes here
+        <div className="field">
+        <form > 
+          <label className="label">Note Title</label>
+          <input className="input" palceholder="Title" value={form.title} name="title" onChange={()=>{event()}} />
+          </form>
+        </div>       
       </section>
       <footer className="modal-card-foot">
-        <button className="button is-success">Save changes</button>
+        <button className="button" onClick={()=>{props.addNote(); props.displayModal()}}>Save changes</button>
         <button className="button" onClick={()=>{props.displayModal()}}>Cancel</button>
       </footer>
     </div>
@@ -58,22 +70,27 @@ class App extends Component {
         noteBody:"I am another note"
       }
       ],
-    display: true
+    display: true,
+    form: {
+      id:"",
+      title:"",
+      noteBody:""
+    }
     }
 
   }
 
-   deleteNote = id => {
+  deleteNote = id => {
     const notes = this.state.notes.filter(note => note.id !== id);
     this.setState({notes});
   }
 
-  addNote = (title, body) => { 
-    const newNoteId = this.state.notes.length -1;
+  addNote = () => { 
+    const newNoteId = this.state.notes.length +1;
     const newNote = {
       id: newNoteId,
-      title: title,
-      body: body
+      title: this.state.form.title,
+      body: this.state.form.noteBody
     }
     this.state.notes.push(newNote);
   }
@@ -81,6 +98,14 @@ class App extends Component {
   displayModal = () => {
     this.setState({display: !this.state.display})
    
+  }
+
+  handleChange = (e) => {
+    console.log(e);
+    let form= this.state.form;
+    // form[e.target.name] = e.target.value;
+
+    this.setState({form})
   }
 
   render() {
@@ -105,6 +130,7 @@ class App extends Component {
                   title={note.title}
                   noteBody={note.noteBody}
                   deleteNote= {this.deleteNote}
+  
                 />
               )}
             </div>
@@ -112,6 +138,9 @@ class App extends Component {
         <Modal 
           display={display}
           displayModal= {this.displayModal}
+          addNote= {this.addNote}
+          form= {this.state.form}
+          handleChange= {this.handleChange}
         />
       </div>
     );
