@@ -9,7 +9,7 @@ const Note = props => {
     <div className="box note">
       <p className="title noteTitle">{props.title}</p>
         <p className="noteBody">{props.noteBody}</p>
-        <div onClick={() => props.deleteNote(props.id)} id={props.id} className="button">delete</div>
+        <div onClick={() => props.deleteNote(props.id)} id={props.id} className="button deleteButton">remove</div>
     </div>
   )
 }
@@ -77,18 +77,28 @@ class App extends Component {
       notes:[
       {
         id:0,
-        title:"Note One",
-        noteBody:"This is a note"
+        title:"Welcome!",
+        noteBody:"This is my note app. Try resize the window, adding or deleting a few notes."
       },
       {
         id:1,
-        title:"Note Two",
-        noteBody:"I am a note that works"
+        title:"First Component",
+        noteBody:"1. 'App' - main component"
+      },
+       {
+        id:2,
+        title:"Second Component",
+        noteBody:"2. 'Note' - for rendering notes"
+      },
+       {
+        id:3,
+        title:"Third Component",
+        noteBody:"3. 'Modal' - handles modal and form"
       },
       {
-        id:2,
-        title:"Note Three",
-        noteBody:"I am another note"
+        id:4,
+        title:"Thank You!",
+        noteBody:"I've enjoyed writing this; thanks for checking out my app!"
       }
       ],
     display: true,
@@ -132,7 +142,7 @@ class App extends Component {
             <div className="hero-body">
                 <div className="container">
                     <h1 className="title headerTitle">Notes</h1>
-                    <h3 className="subtitle headerSubtitle">make a new note or remove an existing one</h3>
+                    <h3 className="subtitle headerSubtitle">Make a new note or remove an existing one.</h3>
                     <button className="button" onClick={() =>{this.displayModal()}} type="button">New Note</button>
                 </div>
             </div>

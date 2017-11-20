@@ -36,6 +36,10 @@ body, .button, .headerTitle, .headerSubtitle, .label, .noteTitle, .modal-card-ti
 	background-color: #fbfbfb;
 }
 
+.deleteButton{
+	float: right;
+}
+
 .noteTitle{
 	font-size: 1.65rem;
 	margin-bottom: 1rem;
